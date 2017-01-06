@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="example.dao.MemberInviteDao">
+	<resultMap type="memberInvite" id="memberInviteMap">
+	<!-- type 
+	 스프링 설정 에서 typeAliasesPackage 에 지정함 별명을 앞에 example.vo 으로 
+	 자동으로 만들어 주게 설정했다. 
+	 그래서 앞에 example.vo 를 빼도 된다.
+	 -->
+		<id column="INO" property="no" /> <!--PK 는 ID 나머지는 result -->
+		<result column="GNO" property="groupNo" />
+		<result column="MNO" property="memberNo" />
+		<result column="INVI_EMAIL" property="inviteEmail" />
+		<result column="STATUS" property="status" />
+		<result column="INVIT_DT" property="createdDate" />
+		<result column="color" property="color" />
+		<result column="gname" property="groupName" />   
+		<result column="gno" property="groupGroupNo" />   
+		<result column="mname" property="groupUserName" />
+		<result column="INVIT_NAME" property="inviteName" />
+		<result column="grno" property="groupReplyNo" />
+		<result column="gno" property="groupReplyGroupNo" />   
+		<result column="GPHOT" property="gphoto" />      
+		<result column="sc_title" property="sc_title" />
+		<result column="GTEXT" property="groupText" />
+		<result column="PHOT_PATH" property="filename"/>
+	</resultMap>
+
+	<select id="selectList" resultMap="memberInviteMap" parameterType="map">
+     <!--  select hiba_group.gno, hiba_group.gname, hiba_group.mname, hiba_invit.*
+			from hiba_group inner join hiba_invit  			
+			on hiba_group.gno = hiba_invit.gno -->
+    
+  select hiba_group.gno, hiba_group.gname, hiba_group.gtext, 
+  hiba_invit.* , 
+  hiba_g_reply.gno, hiba_g_reply.grno, hiba_group_photo.gphot, hiba_membs.PHOT_PATH      
+  from hiba_group
+  inner join hiba_invit on hiba_group.gno = hiba_invit.gno
+  left join hiba_membs on hiba_membs.mno = hiba_invit.mno 
+  inner join hiba_g_reply on hiba_invit.gno = hiba_g_reply.gno      
+  left join hiba_group_photo on hiba_group.gno = hiba_group_photo.gno and hiba_invit.mno = hiba_group_photo.mno
+      
+          
+      <!-- limit #{startIndex}, #{length} --> 
+  </select>
+
+  <select id="orginSelectList" resultMap="memberInviteMap" parameterType="map">
+     select *from hiba_invit
+  </select>
+  
+
+  <insert id="insert" parameterType="memberInvite">
+    <!--  
+    insert into hiba_invit(mno, gno, email, invit_dt)
+    values (#{memberNo}, #{groupNo}, #{email}, now())
+    -->
+    insert into hiba_invit(mno, gno, INVI_EMAIL, name, INVIT_NAME, status, invit_dt)
+    select mno, 
+          #{groupNo},           
+          #{inviteEmail},
+          #{name},
+          #{inviteName},
+          #{status},
+          now()      
+    from hiba_membs
+    where email=#{inviteEmail}
+                 
+  </insert>
+
+  <select id="selectOneByNameAndNumber" resultMap="memberInviteMap" parameterType="map">
+    select ino, gno
+    from hiba_invit 
+    where ino=#{no} and gno=(#{groupNo})  
+  </select>
+	<select id="selectOneByGroupNoAndEmail" resultMap="memberInviteMap" parameterType="map">
+	    select gno, INVI_EMAIL
+	    from hiba_invit 
+	    where gno=#{groupNo} and INVI_EMAIL=(#{inviteEmail})
+	   
+	</select> 
+  <select id="selectOne" resultMap="memberInviteMap" parameterType="int">
+    select *from hiba_invit
+    where INO = #{value}
+  </select>
+  <update id="update" parameterType="memberInvite">
+    update hiba_invit set
+    color=#{color}
+    where ino=#{no}
+  </update>
+
+
+  <update id="update2" parameterType="memberInvite">
+    update hiba_invit set
+    gno = #{groupNo},
+    mno = #{memberNo},
+    status=#{status}
+    where ino=#{no}
+  </update>
+
+  <delete id="delete" parameterType="int">
+    delete from hiba_invit where
+    ino=#{no}
+  </delete>
+<select id="countAll" resultType="int">
+    select count(*) 
+    from hiba_invit
+  </select>
+</mapper>
+
+
+
+    
+
+
+

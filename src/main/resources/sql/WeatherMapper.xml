@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="example.dao.WeatherDao">
+	<resultMap type="weather" id="weatherMap">
+	<!-- type 
+	 스프링 설정 에서 typeAliasesPackage 에 지정함 별명을 앞에 example.vo 으로 
+	 자동으로 만들어 주게 설정했다. 
+	 그래서 앞에 example.vo 를 빼도 된다.
+	 -->
+		<id column="GPNO" property="no" /> <!--PK 는 ID 나머지는 result -->
+		<result column="LAT" property="lat"/>
+		<result column="LON" property="lon"/>
+		<result column="PL_NAME" property="placeName"/>
+		
+		
+		   
+	</resultMap>
+
+ <select id="selectList" resultMap="weatherMap" parameterType="map">
+  select gpno, lat, lon, pl_name from hiba_place
+  </select>
+
+    
+
+</mapper>

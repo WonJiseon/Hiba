@@ -1,0 +1,112 @@
+@charset "utf-8";
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+
+
+button {
+  border-radius: 2rem;
+  border: none;
+  outline: none;
+  font: inherit;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  color: #adde2c;
+  font-weight: 300;
+  font-size: 16px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+}
+button:hover {
+  text-decoration: underline;
+}
+
+
+button.hiba-btn {
+  border-radius: 2rem;
+  padding: 10px 12px 8px 12px;
+  border: 1px solid #adde2c ;
+  color: #adde2c;
+}
+button.hiba-btn:hover {
+  background: #adde2c ;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+
+button.btn-round-g {
+  color: #adde2c;
+  border-color: #adde2c;
+}
+button.btn-round-g:hover {
+  background: #adde2c;
+}
+
+
+button.btn-round-p {
+  color: #751473;
+  border-color: #751473;
+}
+button.btn-round-p:hover {
+  background: #751473;
+}
+
+
+button.btn-round-error {
+  color: #ff3b30;
+  border-color: #ff3b30;
+}
+button.btn-round-error:hover {
+  background: #ff3b30;
+}
+
+
+
+
+
+/*채워진버튼  */
+button.button-border-g{
+  border-radius: 2rem;
+  padding: 10px 12px 8px 12px;
+  border: 1px solid #adde2c ;
+  color: #fff;
+  background: #adde2c;
+}
+button.button-border-g:hover {
+  background: #fff ;
+  color: #adde2c;
+  text-decoration: none;
+} 
+
+button.button-border-p {
+  border-radius: 2rem;
+  padding: 10px 12px 8px 12px;
+  border: 1px solid #751471 ;
+  color: #fff;
+  background: #751471;
+}
+button.button-border-p:hover {
+  background: #fff ;
+  color: #751471;
+  text-decoration: none;
+}
+
+
+button.button-border-error {
+  border-radius: 2rem;
+  padding: 10px 12px 8px 12px;
+  border: 1px solid #ff3b30 ;
+  color: #fff;
+  background: #ff3b30;
+}
+button.button-border-error:hover {
+  background: #fff ;
+  color: #ff3b30;
+  text-decoration: none;
+}
+
+
+

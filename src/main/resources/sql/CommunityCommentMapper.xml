@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="example.dao.CommunityCommentDao">
+	<resultMap type="communityComment" id="communityCommentMap">
+	<!-- type 
+	 스프링 설정 에서 typeAliasesPackage 에 지정함 별명을 앞에 example.vo 으로 
+	 자동으로 만들어 주게 설정했다. 
+	 그래서 앞에 example.vo 를 빼도 된다.
+	 -->
+	 
+	 
+	 
+
+	 
+		<id column="RNO" property="commentNo" />
+    <result column="MNO" property="commentUserNo" />
+    <result column="CNO" property="communityBoardNo" />
+    <result column="NICKNM" property="commentUserNicName" />
+    <result column="PHOT_PATH" property="commentUserPhoto" />
+    <result column="CONTS" property="comment" />
+    <result column="RG_DT" property="commentRegisterDate" />
+		
+    
+	</resultMap>
+
+	<select id="selectList" resultMap="communityCommentMap" parameterType="map">
+   select hiba_board.cno, 
+          hiba_membs.mno, hiba_membs.phot_path, hiba_membs.nicknm, 
+          hiba_brd_reply.rno, hiba_brd_reply.conts, hiba_brd_reply.rg_dt
+   from hiba_brd_reply
+   inner join hiba_membs on hiba_brd_reply.mno=hiba_membs.mno
+   inner join hiba_board on hiba_brd_reply.cno=hiba_board.cno
+<!-- <where>
+      <if test="title != null">title like concat('%', #{title}, '%')</if>
+    </where> -->
+     order by 
+    <choose>
+      <when test="commentNoOrder == 'asc'"> rno asc</when>
+      <otherwise>rno desc</otherwise>
+    </choose>   
+    limit #{startIndex}, #{length}
+  </select>
+  
+  
+
+  <select id="selectOne" parameterType="int" resultMap="communityCommentMap">
+    select hiba_brd_reply.RNO, hiba_brd_reply.MNO, hiba_brd_reply.CONTS, hiba_brd_reply.RG_DT
+           hiba_membs.mno, hiba_membs.name, hiba_membs.phot_path, hiba_membs.NICNM
+    from hiba_brd_reply
+    inner join hiba_membs on hiba_brd_reply.mno=hiba_membs.mno
+    inner join hiba_board on hiba_brd_reply.cno=hiba_board.cno
+    
+    where rno = #{value}
+  </select>
+  
+  <insert id="insert" parameterType="communityComment">
+    insert into hiba_brd_reply(MNO, CNO, CONTS, RG_DT)
+    values(#{commentUserNo}, #{communityBoardNo}, #{comment}, now())
+  </insert>
+
+  <update id="update" parameterType="communityComment">
+    update hiba_brd_reply set
+    conts=#{comment}
+    where rno=#{commentNo}
+  </update>
+
+  <delete id="delete" parameterType="int">
+    delete from hiba_brd_reply 
+    where rno=#{value}
+  </delete>
+
+</mapper>

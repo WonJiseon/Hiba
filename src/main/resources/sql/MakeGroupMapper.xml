@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="example.dao.MakeGroupDao">
+	<resultMap type="makeGroup" id="makeGroupMap">
+	<!-- type 
+	 스프링 설정 에서 typeAliasesPackage 에 지정함 별명을 앞에 example.vo 으로 
+	 자동으로 만들어 주게 설정했다. 
+	 그래서 앞에 example.vo 를 빼도 된다.
+	 -->
+		<id column="GNO" property="no" /> <!--PK 는 ID 나머지는 result -->
+		<result column="mno" property="memberNumber" />
+		<result column="MCOUNT" property="memberCount" />
+		<result column="GNAME" property="groupName" />
+		<result column="EMAIL" property="email" />
+		<result column="MNAME" property="name" />
+		<result column="GPHOT" property="gphoto" />
+		<result column="sc_title" property="sc_title" />    
+		<result column="GTEXT" property="groupText" />
+		<result column="ST_DT" property="start" />      
+	</resultMap>
+
+	<select id="selectList" resultMap="makeGroupMap" parameterType="map">
+       
+     select  hiba_group.*, hiba_group_photo.* , hiba_g_sc.sc_title, hiba_g_sc.st_dt
+     from hiba_group
+     left join hiba_g_sc on hiba_g_sc.gno = hiba_group.gno
+     left join hiba_group_photo on hiba_group.gno = hiba_group_photo.gno and hiba_group.mno = hiba_group_photo.mno;    
+   <!--s
+    select hiba_group.gno, hiba_group.mno, hiba_group.gname, hiba_invit.status
+    from hiba_group inner join hiba_invit
+    on hiba_group.gno = hiba_invit.gno
+    where hiba_invit.status = true
+  SELECT hiba_group.GNO, hiba_group.GNAME, hiba_invit.GNO
+FROM hibadb.hiba_invit    hiba_invit
+     INNER JOIN hibadb.hiba_group hiba_group
+        ON (hiba_invit.GNO = hiba_group.GNO)
+      -->
+
+  </select>
+
+  <select id="selectOne" parameterType="int" resultMap="makeGroupMap">
+    select gno, mno, gname, gtext
+    from hiba_group
+    where mno = #{no}
+  </select>
+  
+  
+  <insert id="insert" parameterType="makeGroup" useGeneratedKeys="true" keyColumn="gno" keyProperty="no">
+    <!--  
+    insert into hiba_group(mno, gname, gphot)
+    values (#{memberNo}, #{groupName}, gphot(#{groupPhoto}))
+  -->
+    insert into hiba_group(mno, email, mname, gname, gtext)
+    values (#{memberNumber},
+          #{email}, 
+          #{name},  
+          #{groupName},
+          #{groupText})      
+  </insert>
+  
+
+
+  <update id="update" parameterType="makeGroup">
+    update hiba_membs set
+    name=#{name},
+    nicknm=#{nicknm},
+    email=#{email}
+    where mno=#{no}
+  </update>
+
+  <delete id="delete" parameterType="int">
+    delete from hiba_group where
+    GNO=#{no}
+  </delete>
+
+</mapper>

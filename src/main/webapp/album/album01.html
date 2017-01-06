@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>그룹 앨범 조회</title>
+   <link rel="stylesheet" type="text/css" href="../css/common_style.css" >
+    <link rel="stylesheet" type="text/css" href="../css/makeCal.css" >
+    <link rel="stylesheet" type="text/css" href="../css/makegroup.css">        
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.css" />
+  </head>
+  <body>
+  <header></header>
+  <section>
+  <div class="section-wrap">
+		  <div class="make-top">
+		    <div class="make-text">
+		     <h2><span id="userName" class="my-login" data-value=""></span>님의 그룹앨범.</h2>
+	  	   <p>앨범을 선택해 주세요.<span id="mno"></span></p>
+		    </div>
+		    <div class="my-info">
+		       <ul>
+		         <li class="my-profile">My 이미지</li> 
+		         <li><button class="btn btn-default" data-target="#layerpop" data-toggle="modal">그룹추가</button></li>
+		       </ul>
+					 <div class="modal fade" id="layerpop" >
+	  				<div class="modal-dialog">
+		    			<div class="modal-content">
+			     			 <!-- header -->
+		      			<div class="modal-header">
+			       		 	 <!-- 닫기(x) 버튼 -->
+	       		       <button type="button" class="close" data-dismiss="modal">×</button>
+		        		   <!-- header title -->
+			        		 <h4 class="modal-title">그룹생성</h4>
+			     			</div>
+			     			<!-- body -->
+		      			<div class="modal-body">
+		            <!-- 	<label for="study-subject">스터디 주제</label><br> 
+                  <select id="subject-list" class="selectpicker" data-live-search="true">
+									  
+									</select><br>               
+                  <label for="study-subject">스터디 부주제</label><br> 
+                  <input id="study-subject" type="text" name="study-subject" placeholder="부주제를 입력하세요."><br> -->
+			      			
+									
+										
+										<form id="frm" action="/group/add" method="post" enctype="multipart/form-data">
+											<label for="groupName">그룹이름</label><br> 
+                      <input id="groupName" type="text" name="groupName" placeholder="그룹명을 입력하세요."><br>
+											<label for="file">그룹이미지</label><br> 
+											<input type="file" name="file1" />
+											 <button type="button" id="addBtn" class="btn btn-default" data-dismiss="modal">만들기</button>
+										</form>
+							  
+		      			</div>
+		      			<!-- Footer -->
+		      			<div class="modal-footer">
+					      	<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+					        <!-- <button type="button" id="addBtn" class="btn btn-default" data-dismiss="modal">만들기</button> -->
+					      </div>
+					    </div>
+		        </div>
+	       </div> 
+	       
+	       <div class="modal fade" id="add-images-pop" >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                 <!-- header -->
+                <div class="modal-header">
+                    <form id="frm2" action="/upload/add" method="post" enctype="multipart/form-data">
+                      <label for="file">그룹이미지</label><br> 
+                      <input type="file" name="file2" />
+                       <button type="button" id="addImageBtn" class="btn btn-default" data-dismiss="modal">만들기</button>
+                    </form>
+                </div>
+                <!-- Footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                  <!-- <button type="button" id="addBtn" class="btn btn-default" data-dismiss="modal">만들기</button> -->
+                </div>
+              </div>
+            </div>
+          </div> 
+           
+	      </div>
+	    </div>
+	    </div>
+		<div class="my-group">
+	    	 <ul id="member" class="member">
+	    <!--  
+	       <li><a href="makeSc.jsp"><i class="group-img"><img src="../images/profile.png"></i><span>그룹1</span></a></li>
+	       <li><a href="#"><i class="group-img"><img src="../images/profile.png"></i><span>그룹2</span></a></li>
+	       <li><a href="#"><i class="group-img"><img src="../images/profile.png"></i><span>그룹3</span></a></li>
+	      -->	     
+	     </ul>
+	    </div>
+	</section>
+	<footer></footer>
+    <script id="liTemplateText" type="text/x-handlebars-template">
+  <li class="groupList">
+    <ul>       
+       <li class="groupTitleLink" style="height: 200px; vertical-align:middle">
+          <a href="#" class="groupMore" data-no="{{groupNo}}" style="display:inline-block; height: 200px; vertical-align:middle">
+             <i class="group-img" style="display:block; vertical-align:middle; border:1px solid #red"> 
+              {{#if gphoto}}
+                <img src="../upload/{{gphoto}}" style=" border-radius: 100px; vertical-align:middle  max-width:150px; max-height:150px;">
+              {{else}}                            
+                  <img src="../images/profile.png" style=" border-radius: 100px; vertical-align:middle;">                
+              {{/if}}             
+              </i>         
+          </a>                 
+          <button class="addImage" type="button" class="btn btn-xs" style="position:absolute; float:right; z-index:1">이미지 변경</button>                   
+          <p class="group-name" style="display:block; text-align:center">{{groupName}}</p>
+        </li>      
+       
+        <li><button id="deleteBtn" class="btn btn-xs btn-default" data-no="{{no}}">x</btuuon></li>
+    </ul>
+  </li>
+  </script>
+  <script id="groupImg" type="text/x-handlebars-template">
+    <p>이미지를~등록해주세요</p>
+  </script>
+  <script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
+  <script src="../node_modules/jquery/dist/jquery.js"></script>   
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.13.0/js/vendor/jquery.ui.widget.js"></script>    
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.13.0/js/jquery.fileupload.js"></script>   -->  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+  <script type='text/javascript'  src="../js/include.js"></script>    
+  <script type='text/javascript'  src="../js/main.js"></script>
+  <script type="text/javascript" src="../js/common.js"></script>
+  <script type="text/javascript" src="../js/bit.js"></script>   
+  <script type="text/javascript" src="../member/memberApp.js"></script>
+  <script type="text/javascript" src="../makegroupApp.js"></script>
+  <script type="text/javascript" src="album01.js"></script>
+  
+  <script type="text/javascript" src="../memberInvite/memberInviteForm.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.js"></script>
+  <script type="text/javascript">
+ 
+ 
+  ajaxLoginUser()
+  ajaxMemberGroupInviteList()
+   /* ajaxStudyList() */
+   if (location.search.startsWith("?")) {     
+     $(".my-new").css("display","none")
+    
+   } else {
+       $(".my-view").css("display","none")
+   }
+
+  </script>
+</body>
+</html>

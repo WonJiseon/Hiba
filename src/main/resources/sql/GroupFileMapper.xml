@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="example.dao.GroupFileDao">
+	<resultMap type="groupFile" id="groupFileMap">
+	<!-- type 
+	 스프링 설정 에서 typeAliasesPackage 에 지정함 별명을 앞에 example.vo 으로 
+	 자동으로 만들어 주게 설정했다. 
+	 그래서 앞에 example.vo 를 빼도 된다.
+	 -->
+		<id column="GPNO" property="GPNO" /> <!--PK 는 ID 나머지는 result -->
+		<result column="GNO" property="no" /> 
+		<result column="MNO" property="memberNo" />
+		<result column="GPHOT" property="filename" />   
+	</resultMap>
+
+
+  <select id="selectList" resultMap="groupFileMap" parameterType="map">
+    select *from HIBA_GROUP_PHOTO
+  
+  </select>
+  <insert id="insert" parameterType="groupFile">
+    insert into HIBA_GROUP_PHOTO(mno, gno, GPHOT)
+    values (#{memberNo}, #{no}, #{filename})
+  </insert>
+  
+  <select id="selectOneByMemberNoAndGroupNo" resultMap="groupFileMap" parameterType="map">
+    select mno, gno
+    from HIBA_GROUP_PHOTO 
+    where mno=#{memberNo} and gno=#{no}
+  </select>
+  
+ <update id="update" parameterType="groupFile">
+    update HIBA_GROUP_PHOTO set
+    GPHOT=#{filename}
+    where mno=#{memberNo} and gno=#{no}
+  </update>
+
+</mapper>

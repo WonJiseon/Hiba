@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="example.dao.AlbumDao">
+	<resultMap type="memberInviteGroup" id="memberInviteGroupMap">
+		<!-- type 스프링 설정 에서 typeAliasesPackage 에 지정함 별명을 앞에 example.vo 으로 자동으로 
+			만들어 주게 설정했다. 그래서 앞에 example.vo 를 빼도 된다. -->
+		<id column="gno" property="groupNo" /> <!--PK 는 ID 나머지는 result -->
+		<id column="mno" property="memberNo" />
+		<result column="gname" property="groupName" />
+		<result column="mname" property="memberName" />
+		<collection property="scheduleList" ofType="scheduleSimple">
+			<id  column="gsno" property="groupscNo"/>
+			<result column="sc_title" property="title" />
+			<result column="gno" property="groupNo" />	
+			<result column="al_phot" property="fileName"/>
+		</collection>
+		
+	</resultMap>
+  
+  <resultMap type="orignAlbum" id="orignAlbumMap">
+    <!-- type 스프링 설정 에서 typeAliasesPackage 에 지정함 별명을 앞에 example.vo 으로 자동으로 
+      만들어 주게 설정했다. 그래서 앞에 example.vo 를 빼도 된다. -->
+    <id column="ALNO" property="No" /> <!--PK 는 ID 나머지는 result -->
+    <result column="gno" property="groupNo" />
+    <result column="mno" property="memberNo" />
+    <result column="gsno" property="groupScheduleNo" />
+    <result column="AL_PHOT" property="filename" />
+    <result column="PHOT_PATH" property="memberFilename" />
+    <result column="CRE_DT" property="createdDate" />
+  </resultMap>
+  
+  
+  
+	<insert id="insert" parameterType="album">
+		insert into hiba_g_al(mno, gno, gsno, AL_PHOT, CRE_DT)
+		values (#{memberNo}, #{groupNo}, #{groupScheduleNo},#{filename}, now())
+	</insert>
+	
+	<select id="selectList" resultMap="memberInviteGroupMap" parameterType="map">
+		select 
+			t1.gno, 
+			t2.gname, 
+			t1.mno, 
+			t2.mname, 
+			t3.gsno, 
+			t3.sc_title,
+			t3.gno,
+			t4.al_phot
+		from hiba_g_membs t1
+		left outer join hiba_group t2 on t1.gno = t2.gno 
+		left outer join hiba_g_sc t3 on t1.gno = t3.gno
+		left outer join hiba_g_al t4 on t3.gsno = t4.gsno
+		 
+
+	</select>
+	
+  <select id="selectListAl" resultMap="orignAlbumMap" parameterType="map">
+  select hiba_g_al.*, hiba_membs.PHOT_PATH, hiba_membs.name 
+  from hiba_g_al
+  inner join hiba_membs on hiba_membs.mno = hiba_g_al.mno
+  
+ 
+    
+    
+  </select>
+  
+	<select id="countAll" resultType="int">
+		select count(*)
+		from hiba_g_sc
+	</select>
+	<update id="update" parameterType="groupFile">
+		update hiba_g_al set
+		al_phot=#{filename}
+		where mno=#{memberNo} and gno=#{groupNo}
+	</update>
+</mapper>

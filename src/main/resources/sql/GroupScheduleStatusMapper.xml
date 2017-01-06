@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="example.dao.GroupScheduleStatusDao">
+	<resultMap type="eventStatus" id="eventStautsMap">
+	<!-- type 
+	 스프링 설정 에서 typeAliasesPackage 에 지정함 별명을 앞에 example.vo 으로 
+	 자동으로 만들어 주게 설정했다. 
+	 그래서 앞에 example.vo 를 빼도 된다.
+	 -->
+		<id column="GSNO" property="no" /> <!--PK 는 ID 나머지는 result -->
+		<result column="MNO" property="memberNo" />
+		<result column="GNO" property="groupNo" />
+		<result column="status" property="status" />
+		<result column="GNO" property="addGroupNo" />
+		<result column="MNO" property="addMemberNo" />
+		<result column="name" property="name" />
+	</resultMap>
+
+	<select id="selectList" resultMap="eventStautsMap" parameterType="map">
+     select hiba_sc_status.*,
+     hiba_g_membs.mno,  hiba_g_membs.gno,
+     hiba_membs.name
+     from hiba_sc_status
+     inner join hiba_g_membs on hiba_sc_status.mno =  hiba_g_membs.mno and hiba_sc_status.gno =  hiba_g_membs.gno
+     inner join hiba_membs on hiba_membs.mno = hiba_g_membs.mno
+  
+ 
+  <!--    select gsno, mno, gno, status
+    from hiba_sc_status  -->
+    
+  </select>
+
+ <select id="selectOneByScheduleNoAndMemberNoAndGroupNo" resultMap="eventStautsMap" parameterType="map">
+    select gsno, mno, gno
+    from hiba_sc_status 
+    where gsno=#{no} and mno=#{memberNo} and gno=#{groupNo}
+  </select>
+  
+  <insert id="insert" parameterType="eventStatus">
+   insert into HIBA_SC_STATUS(gsno, mno, gno, status)
+    values (#{no}, #{memberNo}, #{groupNo}, #{status}) 
+    
+    
+  <!--  insert into hiba_g_sc(mno, gno, gpno, st_dt, ed_dt, sc_title)
+    select mno, 
+          #{groupNo},           
+          #{groupPlaceNo},
+          #{start},
+          #{end},
+          #{title}   
+    from hiba_membs
+    where gpno=#{groupPlaceNo}  -->
+  </insert>
+
+  <update id="update" parameterType="eventStatus">
+    update HIBA_SC_STATUS set
+    status=#{status}
+    where gsno=#{no} and mno=#{memberNo}
+  </update>
+
+  <delete id="delete" parameterType="int">
+    delete from HIBA_SC_STATUS where
+    gpno =#{value}
+  </delete>
+
+</mapper>

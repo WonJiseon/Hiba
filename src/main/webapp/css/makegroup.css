@@ -1,0 +1,14 @@
+
+
+
+article { width: 1080px; margin: 0 auto;}
+
+.modal-body h2 { font-size: 30px; padding:10px;}
+.modal-body label { font-size: 18px; padding: 10px;} 
+.modal-body input { width: 550px; height:30px; border: 1px gray solid; clear: both; padding: 10px; margin: 5px 5px 5px 5px; margin-bottom: 10px; }
+.button { text-align: right; padding: 20px; }
+.modal-body li{ display: inline-block; border: 1px solid #e5e5e5; padding: 20px; }
+.modal-body li{ display: inline-block; border: 1px solid #e5e5e5; padding: 20px; }
+.modal-body li{ display: inline-block; border: 1px solid #e5e5e5; padding: 20px; }
+#profilePhoto {border-radius:50%; width:100px; height:100px;}
+

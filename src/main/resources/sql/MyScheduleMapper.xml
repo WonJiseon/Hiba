@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="example.dao.MyScheduleDao">
+	<resultMap type="myschedule" id="myscheduleMap">
+		<!-- type 스프링 설정 에서 typeAliasesPackage 에 지정함 별명을 앞에 example.vo 으로 자동으로 
+			만들어 주게 설정했다. 그래서 앞에 example.vo 를 빼도 된다. -->
+		<id column="MNO" property="no" /> <!--PK 는 ID 나머지는 result -->
+		<result column="GNO" property="groupNo" />
+		<result column="GSNO" property="groupscNo" />
+		<result column="GPNO" property="gpno"/>		
+		<result column="NAME" property="name" />
+		<result column="STATUS" property="MyScheduleStatus"/>
+		<result column="GNAME" property="groupName" />
+		<result column="GPHOT" property="groupPhoto"/>
+		<result column="SC_TITLE" property="title" />
+		<result column="ST_DT" property="start" />
+		<result column="ED_DT" property="end" />
+		<result column="PL_NAME" property="placeName" />
+		<result column="NICKNM" property="nickName" />
+
+
+	</resultMap>
+
+	<select id="selectList" resultMap="myscheduleMap" parameterType="map">
+select hiba_g_membs.mno, hiba_g_membs.gno, hiba_g_sc.gsno, hiba_g_sc.gpno, hiba_membs.name, hiba_sc_status.status, 
+hiba_membs.nicknm, hiba_group.gname,
+       hiba_g_sc.sc_title, hiba_g_sc.st_dt, hiba_g_sc.ed_dt, hiba_place.pl_name, hiba_group_photo.gphot
+from hiba_sc_status
+left join hiba_g_membs on hiba_sc_status.mno = hiba_g_membs.mno and hiba_sc_status.gno = hiba_g_membs.gno
+left join hiba_membs on hiba_g_membs.mno = hiba_membs.mno
+left join hiba_group on hiba_g_membs.gno = hiba_group.gno 
+left join hiba_group_photo on hiba_group.gno = hiba_group_photo.gno and hiba_membs.mno = hiba_group_photo.mno
+left join hiba_g_sc on hiba_sc_status.gsno = hiba_g_sc.gsno
+left join hiba_place on hiba_g_sc.gpno = hiba_place.gpno
+	</select>
+
+	<select id="selectListefgroupName" resultMap="myscheduleMap"
+		parameterType="map">
+		select hiba_membs.mno, hiba_group.gno, hiba_g_sc.gsno, hiba_membs.name,
+		hiba_membs.nicknm, hiba_g_sc.sc_title, hiba_place.pl_name,
+		hiba_g_sc.st_dt, hiba_g_sc.ed_dt from hiba_g_membs
+		inner join hiba_membs on hiba_g_membs.mno=hiba_membs.mno
+		inner join hiba_group on hiba_g_membs.gno=hiba_group.gno
+		inner join hiba_g_sc on hiba_g_membs.mno=hiba_g_sc.mno and
+		hiba_g_membs.gno=hiba_g_sc.gno
+		inner join hiba_place on hiba_g_sc.gpno=hiba_place.gpno
+	</select>
+
+	<!-- 2016.11.1 수정사항 중기예보를 위해서 gpno를 출력해주기 위해 hiba_g_sc.gpno 추가 -->
+	<select id="selectOneByScheduleNo" parameterType="int"
+		resultMap="myscheduleMap">
+		select hiba_g_sc.gpno, hiba_membs.mno,hiba_g_sc.gsno, hiba_membs.name,
+		hiba_membs.nicknm,hiba_group.gname, hiba_g_sc.sc_title,
+		hiba_place.pl_name, hiba_g_sc.st_dt, hiba_g_sc.ed_dt from hiba_g_membs
+		inner join hiba_membs on hiba_g_membs.mno=hiba_membs.mno
+		inner join hiba_group on hiba_g_membs.gno=hiba_group.gno
+		inner join hiba_g_sc on hiba_g_membs.mno=hiba_g_sc.mno and
+		hiba_g_membs.gno=hiba_g_sc.gno
+		inner join hiba_place on hiba_g_sc.gpno=hiba_place.gpno
+		where hiba_g_sc.gsno = #{value}
+	</select>
+
+	<select id="countAll" resultType="int">
+		select count(*)
+		from hiba_g_sc
+	</select>
+
+</mapper>

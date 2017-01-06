@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="ko" class="no-js"> <!--<![endif]-->
+    <head>
+        <!-- Mobile Specific Meta -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Always force latest IE rendering engine -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- Meta Keyword -->        
+        <!-- meta character set -->
+        <meta charset="utf-8">
+
+        <!-- Site Title -->
+        <title>HIBA</title>        
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="css/main/font-awesome.min.css">
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/main/jquery.fancybox.css">
+        <link rel="stylesheet" href="css/main/owl.carousel.css">
+        <link rel="stylesheet" href="css/main/animate.css">
+        <link rel="stylesheet" href="css/main/main.css">
+        <link rel="stylesheet" href="css/modal_style.css">
+        <link rel="stylesheet" href="css/main/responsive.css">
+        <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/animate.css">
+        <link rel="stylesheet" type="text/css" href="css/color/violet.css">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+        <script src="node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>    
+        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script>
+        $( document ).ready(function() {
+          $.getJSON(serverAddr +"/member/countAllGroup.json", function(obj) {
+              var result = obj.jsonResult
+              if (result.state != "success") {
+                return
+              }       
+              console.log(result.data)
+              $('#groupCount').countTo({ from: 100, to : result.data, speed: 2000,
+                  refreshInterval: 100,
+                  formatter: function (value, options) {
+                    return value.toFixed(options.decimals);
+                  },
+                  onUpdate: function (value) {
+                    
+                  },
+                  onComplete: function (value) {
+                   
+                  } 
+                })
+              })
+               $.getJSON(serverAddr +"/member/countAllSc.json", function(obj) {
+              var result = obj.jsonResult
+              if (result.state != "success") {
+                return
+              }       
+              console.log(result.data)
+              $('#scCount').countTo({ from: 100, to : result.data, speed: 2000,
+                  refreshInterval: 100,
+                  formatter: function (value, options) {
+                    return value.toFixed(options.decimals);
+                  },
+                  onUpdate: function (value) {
+                    
+                  },
+                  onComplete: function (value) {
+                    
+                  } 
+                })
+              })
+               $.getJSON(serverAddr +"/member/countAllMember.json", function(obj) {
+              var result = obj.jsonResult
+              if (result.state != "success") {
+                return
+              }       
+              console.log(result.data)
+              $('#memberCount').countTo({ from: 100, to : result.data, speed: 2000,
+                  refreshInterval: 100,
+                  formatter: function (value, options) {
+                    return value.toFixed(options.decimals);
+                  },
+                  onUpdate: function (value) {
+                  
+                  },
+                  onComplete: function (value) {
+                  
+                  } 
+                })
+              })
+            })  
+        </script>
+        <style>
+.Btn2 { background-color: #e7e7e7;color: black;} /* Gray */
+.Btn3 { background-color:rgb(157, 201, 42); color: black;} /* Gray */
+
+.wrap {
+  position: relative;
+  top: 150px;
+  width: 150px;
+  margin: 0 auto;
+}
+
+.loader {
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  width: 50px;
+  height: 50px;
+  border: 15px solid;
+  border-radius: 50%;
+  border-top-color: rgba(44,44,44,0);
+  border-right-color: rgba(55,55,55,0);
+  border-bottom-color: rgba(66,66,66,0);
+  border-left-color: rgba(33,33,33,0);
+  animation: loadEr 3s infinite;
+}
+
+@keyframes loadEr {
+  0% {
+    border-top-color: rgba(44,44,44,0);
+    border-right-color: rgba(55,55,55,0);
+    border-bottom-color: rgba(66,66,66,0);
+    border-left-color: rgba(33,33,33,0);
+    
+  }
+  10.4% {
+    border-top-color: rgba(44,44,44,0.5);
+    border-right-color: rgba(55,55,55,0);
+    border-bottom-color: rgba(66,66,66,0);
+    border-left-color: rgba(33,33,33,0);
+  }
+  20.8% {
+    border-top-color: rgba(44,44,44,0);
+    border-right-color: rgba(55,55,55,0);
+    border-bottom-color: rgba(66,66,66,0);
+    border-left-color: rgba(33,33,33,0);
+  }
+31.2% {
+  border-top-color: rgba(44,44,44,0);
+    border-right-color: rgba(55,55,55,0.5);
+    border-bottom-color: rgba(66,66,66,0);
+    border-left-color: rgba(33,33,33,0);
+}
+41.6% {
+  border-top-color: rgba(44,44,44,0);
+    border-right-color: rgba(55,55,55,0);
+    border-bottom-color: rgba(66,66,66,0);
+    border-left-color: rgba(33,33,33,0);
+  transform: rotate(40deg);
+}
+52% {
+  border-top-color: rgba(44,44,44,0);
+    border-right-color: rgba(55,55,55,0);
+    border-bottom-color: rgba(66,66,66,0.5);
+    border-left-color: rgba(33,33,33,0);
+}
+62.4% {
+  border-top-color: rgba(44,44,44,0);
+    border-right-color: rgba(55,55,55,0);
+    border-bottom-color: rgba(66,66,66,0);
+    border-left-color: rgba(33,33,33,0);
+}
+72.8% {
+  border-top-color: rgba(44,44,44,0);
+    border-right-color: rgba(55,55,55,0);
+    border-bottom-color: rgba(66,66,66,0);
+    border-left-color: rgba(33,33,33,0.5);
+}
+}
+
+.loaderbefore {
+  width: 50px;
+  height:50px;
+  border: 15px solid #ddd;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  z-index: 9;
+}
+
+.circular {
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  width: 70px;
+  height: 70px;
+  border: 20px solid;
+  border-radius: 50%;
+  border-top-color: #333;
+  border-left-color: #fff;
+  border-bottom-color: #333;
+  border-right-color: #fff;
+  opacity: 0.2;
+  animation: poof 5s infinite;
+}
+@keyframes poof {
+  0% {transform: scale(1,1) rotate(0deg); opacity: 0.2;}
+  50% {transform: scale(4,4) rotate(360deg); opacity: 0;}
+}
+.another {
+  opacity: 0.1;
+  transform: rotate(90deg);
+  animation: poofity 5s infinite;
+  animation-delay: 1s;
+}
+@keyframes poofity {
+  0% {transform: scale(1,1) rotate(90deg); opacity: 0.1;}
+  50% {transform: scale(4,4) rotate(-360deg); opacity: 0;}
+}
+
+.text {
+  position: absolute;
+  top: 95px;
+  left: 8px;
+  font-family: Arial;
+  text-transform: uppercase;
+  color: #888;
+  animation: opaa 10s infinite;
+}
+@keyframes opaa {
+  0% {opacity: 1;}
+10% {opacity: 0.5}
+15% {opacity: 1;}
+30% {opacity: 1;}
+65% {opacity: 0.3;}
+90% {opacity: 0.8;}
+}
+.display-none{ /*감추기*/
+        display:none;
+    }
+    
+.main-heading-content {
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  position: absolute;
+  top: 30%;
+  left: 0;
+  right: 0;
+}
+
+.main-heading-title {
+  font-weight: 900;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size:3.5em;
+  text-shadow: rgba(0,0,0,0.498039) 2px 2px 2px;
+  letter-spacing: 0.02em;
+  
+}
+.main-heading-title span {
+  margin-left: 6px;
+}
+.main-heading-text {
+  font-size: 16px;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+.overlay{
+  background: -moz-linear-gradient(top,  rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.73) 17%, rgba(0,0,0,0.66) 35%, rgba(0,0,0,0.55) 62%, rgba(0,0,0,0.4) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.8)), color-stop(17%,rgba(0,0,0,0.73)), color-stop(35%,rgba(0,0,0,0.66)), color-stop(62%,rgba(0,0,0,0.55)), color-stop(100%,rgba(0,0,0,0.4))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.73) 17%,rgba(0,0,0,0.66) 35%,rgba(0,0,0,0.55) 62%,rgba(0,0,0,0.4) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.73) 17%,rgba(0,0,0,0.66) 35%,rgba(0,0,0,0.55) 62%,rgba(0,0,0,0.4) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.73) 17%,rgba(0,0,0,0.66) 35%,rgba(0,0,0,0.55) 62%,rgba(0,0,0,0.4) 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.73) 17%,rgba(0,0,0,0.66) 35%,rgba(0,0,0,0.55) 62%,rgba(0,0,0,0.4) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc000000', endColorstr='#66000000',GradientType=0 ); /* IE6-9 */
+  //background-attachment: fixed;
+        height:auto;
+        height:100%;
+        position:relative;
+}
+.overlay.container
+{
+    padding:80px 0px;
+}
+.overlay > .container
+{
+    padding:170px 0px;    
+}
+
+</style>
+    </head>
+  
+    <body>
+<div class="wrap display-none">
+  <div class="loader"></div>
+  <div class="loaderbefore"></div>
+  <div class="circular"></div>
+  <div class="circular another"></div>
+  <div class="text">Loading</div>
+</div>
+
+        <!--
+        Fixed Navigation
+        ==================================== -->
+        <header id="navigation" class="navbar-fixed-top">
+            <div class="container">
+
+                <div class="navbar-header">
+                    <!-- responsive nav button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- /responsive nav button -->
+
+                    <!-- logo -->
+                    <h1 class="navbar-brand">
+                        <a href="#body">
+                            <img src="images/hiba_logo_main_w.png" alt="HIBA">
+                        </a>
+                    </h1>
+                    <!-- /logo -->
+
+                  </div>
+
+                    <!-- main nav -->
+             
+                    <nav class="collapse navigation navbar-collapse navbar-right nav-warp" role="navigation">
+                        <ul id="nav" class="nav navbar-nav">
+                            <li class="current"><a href="#home">Home</a></li>
+                            <li><a href="#service">Service</a></li>
+                            <li><a href="#about">About</a></li>
+                          <!--   <li id="ModalLoginBtn" onclick="document.getElementById('id02').style.display='block'"><a href="#">Sign In</a></li> -->
+                            <li onclick="document.getElementById('id01').style.display='block'"><a href="#">Join Hiba</a></li>
+                        </ul>
+                    </nav>
+                    <!-- /main nav -->
+               
+              
+            </div>
+        </header>
+
+        <!--
+        End Fixed Navigation
+        ==================================== -->
+        
+        <div id="id01" class="w3-modal">
+        <div class="modal-sign-box">
+           <ul class="login-nav login-modal-list">
+                <li class="login-nav__item active">
+                  <a href="#">Sign In</a>
+                </li>
+                <li class="login-nav__item">
+                  <a href="#">Sign Up</a>
+                </li>
+             </ul>
+              <span onclick="document.getElementById('id01').style.display='none'"
+              class="w3-closebtn w3-hover-red w3-container w3-padding-8 w3-display-topright"
+              style="z-index:10000"
+            title="Close Modal">&times;</span>
+            <div class="login-container">    
+              <form method="post" class="form-login">
+                <label for="LoginEmail" class="login__label">Email</label>
+                <input id="LoginEmail" class="login__input" type="text" />
+               
+                <label for="LoginPassword" class="login__label">Password</label>
+                <input id="LoginPassword" class="login__input" type="password" />
+               
+                <label for="" class="login__label--checkbox">
+                  <input id="saveEmail" type="checkbox" class="login__input--checkbox" />
+                  Keep me Signed in
+                </label>
+                <button type="button" class="login__submit" id="loginBtn">Sign in</button>
+              </form>
+            </div>
+             <div class="login-container">
+                <form class="form-login"  method="post" enctype="multipart/form-data">
+                  <label for="name" class="login__label">NAME</label>
+                   <input type="text" id="name" class="login__input" name="usrId" required>
+                   
+                   <label for="nicknm" class="login__label">NICKNAME</label>
+                   <input type="text" id="nicknm" class="login__input" name="usrName" required>
+                  
+                   <label for="email" class="login__label">EMAIL</label>
+                   <input type="text" id="email" class="login__input" name="email" required> 
+                   
+                   <div class="join-email-box" style="position: relative;">
+                     <p id="checkedEmail" style="position: absolute; top:0px; margin:0px"></p>
+                   </div><br>
+                   
+                   <label for="password" class="login__label">PASSWORD</label>
+                   <input type="password" id="password" class="login__input" name="psw" required>
+                   
+                
+                   <label for="file" class="file-label login__label">PHOTO</label>
+                   <input type="file" name="filename" id="PHOT_PATH"/>
+                   <button type="button" id="addBtn" class="login__submit" type="button">SIGN UP</button>
+                </form>
+             </div>
+          </div>
+          
+<script type="text/javascript">
+
+</script>          
+          
+          
+          
+          
+        <!--   <div class="w3-section" style="margin-top:0px!important; margin-bottom:0px!important; ">
+            
+            <div class="group">      
+              <input type="text" id="name" name="usrId" required>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label>이름</label>
+            </div>
+            
+            <div class="group">      
+              <input type="text" id="nicknm" name="usrName" required>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label>닉네임</label>
+            </div>
+            
+            <div class="group">      
+              <input type="text" id="email" name="email" required>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label>Email</label>
+            </div>
+            <div class="join-email-box" style="position: relative;">
+             <p id="checkedEmail" style="position: absolute; top:-40px; margin:0px"></p>
+            </div>
+            
+            <div class="group">      
+              <input type="password" id="password" name="psw" required>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label>비밀번호</label>
+            </div>
+   
+          <div class="group">    
+           <label for="file" class="file-label">사진 등록</label><br> 
+            <input type="file" name="filename" id="PHOT_PATH"/>
+           <button id="addBtn" class="w3-btn-block w3-green w3-section w3-padding" type="button">가 입 하 기</button>
+              <label><b>비밀번호 확인</b></label> <input id="password" class="w3-input w3-border" type="password"  placeholder="비밀번호 확인" name="pswCheck" required>
+               <p style="text-align:center; padding-top: 0px;">
+                  <input class="w3-check w3-margin-top" style="display:inline-block" type="checkbox" checked="checked">
+                  <span style="display:inline-block"> Remember me</span>
+              </p>
+          </div>
+        </div> -->
+    </div>
+
+        <section id="home">     
+          <div id="home-carousel" class="carousel slide" data-interval="false">
+              <div class="carousel-inner">
+              <div class="item active"  style="background-image: url('images/main1.png')">
+                 <div class="overlay">
+                     <div class="container">                   
+                        <div class="main-heading-content col-md-12 col-sm-12 text-center">
+                    <p class="main-heading-title" style="font-size: 35px; padding-bottom:20px;">HIBA<span class="main-element themecolor" data-elements="모임별로 일정을 알려주는 hiba!!!,모임별로 일정을 쉽게 잡아봐!,만나는 주변 장소와 날씨도 알아봐!,찍은 사진도 공유해 봐!"></span></p>
+                    <p class="main-heading-text">이번 달은 무슨 모임이 있지?<br/>동창 모임 3번, 여행 모임 1번.. 그리고 그 근처에 뭐가 있더라?<br>복잡한 모임 관리는 하이바에 맡기고,<br> 함께 하는 즐거움을 만끽하세요!</p>
+                        </div>                          
+                     </div>
+                 </div>  
+             </div>     
+            </div>
+         
+                  
+          <div class="counter-section clearfix" style="display:inline-block; position:relative; top:-300px; width:100%">
+              <div class="col-md-3 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-delay="0.5s">
+                  <div class="fact-item text-center">
+                      <div class="fact-icon">
+                          <i class="fa fa-check-square fa-lg"></i>
+                      </div>
+                      <span id="groupCount"></span>
+                      <p>생성된 그룹</p>
+                  </div>
+              </div>
+              
+              <div class="col-md-3 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-delay="0.8s">
+                  <div class="fact-item text-center">
+                      <div class="fact-icon">
+                          <i class="fa fa-users fa-lg"></i>                                    
+                      </div>
+                      <span id="scCount">0</span>
+                      <p>진행중인 약속</p>
+                  </div>
+              </div>
+              
+              <div class="col-md-3 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-delay="1.1s">
+                  <div class="fact-item text-center last">
+                      <div class="fact-icon">
+                          <i class="fa fa-clock-o fa-lg"></i>
+                      </div>
+                      <span id="memberCount">0</span>
+                      <p>회원수</p>
+                  </div>
+              </div>
+              
+              <div class="col-md-3 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-delay="1.3s">
+                  <div class="fact-item text-center last">
+                      <div class="fact-icon">
+                          <i class="fa fa-trophy fa-lg"></i>
+                      </div>
+                      <span data-to="100">0</span>
+                      <p>만족도</p>
+                  </div>
+              </div>
+
+          </div>
+                </div>
+              
+        </section>
+
+        <section id="service" style="margin-top: -220px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title text-center wow fadeInDown">
+                            <h2>Services</h2>    
+                            <p>HiBa 에서 제공하는 다양한 콘텐츠를 이용하세요</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-6 col-sm-12 wow fadeInLeft">
+                        <div class="media">
+                            <a href="#" class="pull-left">
+                              <img src="images/users1.png" alt="그룹핑" class="media-object" width="128" height="128">
+                            </a>
+                            <div class="media-body">
+                                <h3>Users Group</h3>
+                                <p><strong>모임별로 쉽게 잡아봐!</strong><br>복잡한 모임 관리는 하이바에 맡기고,<br>함께 하는 즐거움을 만끽하세요!</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 wow fadeInRight" data-wow-delay="0.2s">
+                        <div class="media">
+                            <a href="#" class="pull-left">
+                              <img src="images/cloud1.png" alt="날씨제공" width="128" height="128">                                
+                            </a>
+                            <div class="media-body">
+                                <h3>Weather Services</h3>
+                                <p><strong>약속날 날씨도 미리봐!</strong><br>모임날 어떤 준비를 해야되는지<br> 날씨를 확인하고 준비하세요!</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 wow fadeInLeft">
+                        <div class="media">
+                            <a href="#" class="pull-left">
+                                 <img src="images/mapPin4.png" alt="지도서비스" width="128" height="128">
+                            </a>
+                            <div class="media-body">
+                                <h3>Map Services</h3>
+                                <p><strong>만나는 주변 장소도 알아봐!</strong><br>장소가 정해주면 주변 맛집, 카페, 축제등,<br> 다양한 정보를 알아보세요!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 wow fadeInRight" data-wow-delay="0.2s">
+                        <div class="media">
+                            <a href="#" class="pull-left">
+                              <img src="images/camera2.png" alt="앨범서비스" width="128" height="128">
+                            </a>
+                            <div class="media-body">
+                                <h3>Photo Sharing Service</h3>
+                                <p><strong>찍은 사진 공유해 봐!</strong><br>모인 날짜별로 사진을 정리할 수 있는 앨범으로<br>멤버들과 추억을 공유하세요!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- end .row -->
+            </div> <!-- end .container -->
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <div class="row">
+
+                    <div class="section-title text-center wow fadeInUp">
+                        <h2>About Us</h2>    
+                        <p>안녕하세요 BITCAMP JAVA85기 프로젝트 팀 QQKK입니다.</p>
+                    </div>
+                               <div class="col-md-5 col-md-offset-1 wow fadeInLeft">
+
+                        <div class="subtitle text-center">
+                            <h3>PROJECT TEAM MEMBER</h3>
+                           <!--  <p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Mauris blandit aliquet elit, eget tincidunt.</p> -->
+                        </div>
+
+                        <div id="testimonial">
+
+                            <div class="tst-item clearfix">
+                                <div class="tst-single clearfix">
+                                    <img src="images/member/main_park.jpg" alt="Client" class="img-circle">
+                                    <div class="tst-content">
+                                        <p><strong>DEVELOPER</strong> Park.Nahyun<br><i class="fa fa-envelope-o"></i> s01049029479@gmail.com <br><i class="fa fa-phone"></i> 010-4902-9479 <br><i class="fa fa-github"></i> github.com/nahyunpark</p>
+                                        <span>박나현</span>
+                                    </div>
+                                </div>
+
+                                <div class="tst-single clearfix">
+                                    <img src="images/member/main_ham.jpg" alt="Client" class="img-circle">
+                                    <div class="tst-content">
+                                        <p><strong>DEVELOPER</strong> Hahm.Jiho<br><i class="fa fa-envelope-o"></i>  Hahm0418@gmail.com <br><i class="fa fa-phone"></i> 010-4734-2283 <br><i class="fa fa-github"></i> github.com/HahmJiHo</p>
+                                        <span>함지호</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tst-item">
+                                <div class="tst-single clearfix">
+                                    <img src="images/member/main_gong.jpg" alt="Client" class="img-circle">
+                                    <div class="tst-content">
+                                        <p><strong>DEVELOPER</strong> Kong.Andrew<br><i class="fa fa-envelope-o"></i> shkong529@gmail.com <br><i class="fa fa-phone"></i> 010-8754-9084 <br><i class="fa fa-github"></i> github.com/AndrewKong88</p>
+                                        <span>공승환</span>
+                                    </div>
+                                </div>
+                                <div class="tst-single clearfix">
+                                    <img src="images/member/main_lee.jpg" alt="Client" class="img-circle">
+                                    <div class="tst-content">
+                                        <p><strong>DEVELOPER</strong> Lee.Sangwon<br><i class="fa fa-envelope-o"></i> wonlee6@gmail.com <br><i class="fa fa-phone"></i> 010-9227-1008 <br><i class="fa fa-github"></i> github.com/HahmJiHo</p>
+                                        <span>이상원</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tst-item">
+                                <div class="tst-single clearfix">
+                                    <img src="images/member/main_won.jpg" alt="Client" class="img-circle">
+                                    <div class="tst-content">
+                                        <p><strong>DEVELOPER</strong> Won.Jiseon<br><i class="fa fa-envelope-o"></i> zx080818@gmail.com <br><i class="fa fa-phone"></i> 010-4347-3370 <br><i class="fa fa-github"></i> github.com/WonJiseon</p>
+                                        <span>원지선</span>
+                                    </div>
+                                </div>
+                                <div class="tst-single clearfix">
+                                    <img src="images/member/main_han.jpg" alt="Client" class="img-circle" style="border:1px solid #c0c0c0;">
+                                    <div class="tst-content">
+                                        <p><strong>DEVELOPER</strong> Han.Daeho<br><i class="fa fa-envelope-o"></i> daeho@hanmail.net <br><i class="fa fa-phone"></i> 010-0000-0000 <br><i class="fa fa-github"></i> github.com/Handaeho</p>
+                                        <span>한대호</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- end #testimonial -->
+                    </div> <!-- end .col-md-5 -->
+
+                    <div class="col-md-5 col-md-offset-1 wow fadeInRight">
+
+                        <div class="subtitle text-center">
+                            <h3>OUR SKILLS</h3>
+                           <!--  <p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Mauris blandit aliquet elit, eget tincidunt.</p> -->
+                        </div>
+
+                        <div class="progress-bars">
+                            
+                            <span>JAVA - <small>95%</small></span>
+                            <div class="progress"  data-progress="95">
+                                <div class="bar"></div>
+                            </div>
+                            <span>Mysql - <small>93%</small></span>
+                            <div class="progress"  data-progress="93">
+                                <div class="bar"></div>
+                            </div>
+                            <span>Javascript & jQuery - <small>85%</small></span>
+                            <div class="progress" data-progress="85">
+                                <div class="bar"></div>
+                            </div>
+                            <span>HTML & CSS - <small>87%</small></span>
+                            <div class="progress kill-margin"  data-progress="87">
+                                <div class="bar"></div>
+                            </div>
+
+                        </div>  <!-- progress-bars -->
+
+                    </div>  <!-- end .col-md-5 -->
+                </div>
+            </div>
+        </section>
+ 
+        <footer id="footer" class="text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div class="footer-logo wow fadeInDown">
+                             <img src="images/hiba_logo_main.png" alt="HIBA">
+                        </div>
+
+                        <div class="footer-social wow fadeInUp">
+                            <h3>We are Project Github</h3>
+                            <i class="fa fa-github" aria-hidden="true"></i>
+                            <p><a href="https://github.com/HahmJiHo/qqkk">https://github.com/HahmJiHo/qqkk</a></p>
+                        </div>
+
+                        <div class="copyright">
+                            <p>Developed by QQKK</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        
+        <!-- main jQuery -->
+        
+        <script src="js/main/jquery.nav.js"></script>
+        <script src="js/main/jquery.mixitup.min.js"></script>
+        <script src="js/main/jquery.fancybox.pack.js"></script>
+        <script src="js/main/jquery.parallax-1.1.3.js"></script>
+        <script src="js/main/jquery.appear.js"></script>
+        <script src="js/main/jquery-countTo.js"></script>
+        <script src="js/main/owl.carousel.min.js"></script>
+        <script src="js/main/wow.min.js"></script>
+        <script type="text/javascript" src="js/typed.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/main/main_nav.js"></script>
+        <script type="text/javascript" src="js/check.js"></script>        
+        <script type="text/javascript" src="js/common.js"></script>
+        <script type="text/javascript" src="js/bit.js"></script>
+        <script type="text/javascript" src="member/memberForm.js"></script>
+        <script type="text/javascript" src="auth/authApp.js"></script>
+        <script>
+				init() 				
+				ajaxLogout()
+				</script>
+				
+        
+        
+ </body>
+</html>

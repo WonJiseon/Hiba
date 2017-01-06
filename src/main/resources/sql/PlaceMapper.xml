@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="example.dao.PlaceDao">
+	<resultMap type="Place" id="placeMap">
+		<!-- type 스프링 설정 에서 typeAliasesPackage 에 지정함 별명을 앞에 example.vo 으로 자동으로 
+			만들어 주게 설정했다. 그래서 앞에 example.vo 를 빼도 된다. -->
+		<id column="GPNO" property="no" /> <!--PK 는 ID 나머지는 result -->
+		<result column="PL_NAME" property="placeName" />
+		<result column="PL_LIKE" property="like" />
+	</resultMap>
+
+	<select id="selectList" resultMap="placeMap" parameterType="map">
+		select GPNO, PL_NAME, PL_LIKE
+		from hiba_place
+	</select>
+
+	<!-- 2016.10.31 수정사항 장소번호를 입력받아서 장소명을 불러온다. -->
+	<select id="selectPlace" parameterType="int" resultType="String">
+		select
+		pl_name
+		from hiba_place
+		where gpno = #{value}
+	</select>
+
+	<select id="selectOne" parameterType="int" resultMap="placeMap">
+		select mno,
+		name, nicknm, email
+		from hiba_place
+		where mno = #{value}
+	</select>
+
+	<!-- <select id="selectOneByPassword" resultMap="placeMap" parameterType="map"> 
+		select mno, name, nicknm, email from hiba_place where mno=#{no} and pwd=password(#{password}) 
+		</select> <select id="selectOneByEmailAndPassword" resultMap="placeMap" parameterType="map"> 
+		select mno, name, nicknm, email from hiba_place where EMAIL=#{email} and 
+		PWD=password(#{password}) </select> -->
+
+
+	<insert id="insert" parameterType="place" useGeneratedKeys="true"
+		keyColumn="GPNO" keyProperty="no">
+		insert into hiba_place(PL_NAME, PL_LIKE, lat, lon)
+		values (#{placeName}, #{like}, #{lat}, #{lon})
+
+	</insert>
+
+	<update id="update" parameterType="place">
+		update hiba_place set
+		PL_NAME=#{placeName}
+		where GPNO=#{no}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete from hiba_place where
+		GPNO=#{value}
+	</delete>
+
+</mapper>

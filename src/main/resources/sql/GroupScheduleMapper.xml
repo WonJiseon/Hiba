@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="example.dao.GroupScheduleDao">
+	<resultMap type="event" id="eventMap">
+	<!-- type 
+	 스프링 설정 에서 typeAliasesPackage 에 지정함 별명을 앞에 example.vo 으로 
+	 자동으로 만들어 주게 설정했다. 
+	 그래서 앞에 example.vo 를 빼도 된다.
+	 -->
+		<id column="GSNO" property="no" /> <!--PK 는 ID 나머지는 result -->
+		<result column="MNO" property="memberNo" />
+		<result column="GNO" property="groupNo" />
+		<result column="GPNO" property="groupPlaceNo" />
+		<result column="ST_DT" property="start" />
+		<result column="ED_DT" property="end" />
+		<result column="SC_TITLE" property="title" />
+		<result column="PL_NAME" property="placeName" />
+		<result column="STATUS" property="STATUS" />
+		<result column="PL_LIKE" property="like" /> 
+		<result column="COLOR" property="color" />  
+		<result column="TITLE_COUNT" property="titleNo" /> 
+		<result column="ID" property="id" />    
+	</resultMap>
+
+	<select id="selectList" resultMap="eventMap" parameterType="map">
+    <!-- select mno, gno, gpno, st_dt, ed_dt, sc_title
+    from hiba_g_sc -->
+
+     select hiba_g_sc.*,
+      hiba_invit.COLOR, 
+      hiba_place.PL_NAME, hiba_place.lat, hiba_place.lon
+     from hiba_g_sc
+     inner join hiba_invit on hiba_g_sc.mno = hiba_invit.mno and hiba_g_sc.gno = hiba_invit.gno
+     inner join hiba_place on hiba_place.gpno = hiba_g_sc.gpno
+    
+  </select>
+
+  <select id="selectOne" parameterType="int" resultMap="eventMap">
+    select mno,
+    name, nicknm, email
+    from hiba_g_sc
+    where mno = #{value}
+  </select>
+
+  <select id="selectOneByPassword" resultMap="eventMap" parameterType="map">
+    select mno, name, nicknm, email
+    from hiba_g_sc 
+    where mno=#{no} and pwd=password(#{password})
+  </select>
+  
+   <select id="selectOneByEmailAndPassword" resultMap="eventMap" parameterType="map">
+    select mno, name, nicknm, email
+    from hiba_g_sc 
+    where EMAIL=#{email} and PWD=password(#{password})
+  </select>
+  
+  
+  <insert id="insert" parameterType="event" useGeneratedKeys="true" keyColumn="gsno" keyProperty="no">
+   insert into hiba_g_sc(mno, gno, gpno, st_dt, ed_dt, sc_title, title_count, ID)
+    values (#{memberNo}, #{groupNo}, #{groupPlaceNo}, #{start}, #{end}, #{title}, #{titleNo}, #{id}) 
+    
+    
+  <!--  insert into hiba_g_sc(mno, gno, gpno, st_dt, ed_dt, sc_title)
+    select mno, 
+          #{groupNo},           
+          #{groupPlaceNo},
+          #{start},
+          #{end},
+          #{title}   
+    from hiba_membs
+    where gpno=#{groupPlaceNo}  -->
+  </insert>
+
+  <update id="update" parameterType="event">
+    update hiba_g_sc set
+    name=#{name},
+    nicknm=#{nicknm},
+    email=#{email}
+    where mno=#{no}
+  </update>
+
+  <delete id="delete" parameterType="int">
+    delete from hiba_g_sc where
+    gpno =#{value}
+  </delete>
+
+</mapper>

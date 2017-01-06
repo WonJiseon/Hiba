@@ -1,0 +1,284 @@
+/* 
+* grid를 위해서 추가 
+*/
+.glyphicon { margin-right:5px; }
+
+.thumbnail
+{
+    margin-bottom: 20px;
+    padding: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+.logOutBtn { font-size:16px; margin:20px;}
+.logout { font-size:16px; margin:20px; }
+.item.list-group-item
+{
+    float: none;
+    width: 100%;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+.item.list-group-item:nth-of-type(odd):hover,.item.list-group-item:hover
+{
+    background: #428bca;
+}
+
+.item.list-group-item .list-group-image
+{
+    margin-right: 10px;
+}
+.item.list-group-item .thumbnail
+{
+    margin-bottom: 0px;
+}
+.item.list-group-item .caption
+{
+    padding: 9px 9px 0px 9px;
+    margin-left: 20px;
+}
+.item.list-group-item:nth-of-type(odd)
+{
+    background: #eeeeee;
+}
+
+.item.list-group-item:before, .item.list-group-item:after
+{
+    display: table;
+    content: " ";
+}
+
+.item.list-group-item img
+{
+    float: left;
+}
+.item.list-group-item:after
+{
+    clear: both;
+}
+.list-group-item-text
+{
+    /* margin: 10px 0 11px 60px;  */
+  
+}
+
+
+.container{
+  padding: 2rem;
+}
+
+#viewSc {
+	margin-left: 30px;
+}
+
+#viewSc2 {
+	margin-left: 30px;
+}
+
+
+#viewSc3 {
+	margin-left: 30px;
+}
+
+
+.btn-group {
+	margin-left: 1000px;
+}
+
+
+
+#schedule:hover {
+	background-color: light-gray;
+}
+ 
+
+.sectionbar-line {
+	text-align: center;
+}
+
+.bxslider {
+    max-width: 580px;
+    max-height: 200px;
+    margin-bottom: 150px;
+    margin-top: 37px;
+}
+
+
+#group-Info {
+	z-index:2;
+	position:relative;
+	width: 300px;
+	float: left;
+	height: 100%;
+}
+.groupInfo {
+	z-index:2;
+	margin-left: 30px 30px 30px 45px;
+	position:relative;
+	width: 200px;
+	
+	float: left;
+}
+#scheduleInfo {
+  position: absolute;
+  width: 680px;
+  height: 300px;
+  right : 4px;
+
+}
+
+#schedule-Info {
+	width: 650px;
+	height: 250px;
+	position: absolute;
+	right: 50px;
+	top: 0px;
+}
+
+
+.title {
+	font-size: 47px;
+}
+
+#dday-Info {text-align: center; margin-top: 30px; margin-bottom: 30px;}
+
+
+
+.gallery{ 
+	position: absolute;
+	left: 10px; top: 20px;
+  width: 280px;
+  height: 250px;
+  margin: 0;
+  padding: 0;
+  outline: 0;  
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  float: left;
+}
+.separate {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+          
+	width:300px;
+	height: 29px;
+	float: left;
+}
+.gallery-item{
+  box-shadow: 2px 2px 8px -1px #fff;
+  width: 280px;
+  height: 250px;
+  background: #000;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  vertical-align: baseline;
+  align: left;
+
+}
+
+.gallery-item-image{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index:20;
+  -webkit-transition:all .5s ease;
+  transition: all .5s ease;
+  bottom:0;
+  overflow: hidden;
+
+}
+
+
+.gallery-item:hover .gallery-item-image{
+  bottom: 80px;
+}
+
+.gallery-item-description{
+  color:white;
+  font-size: 1rem;
+  width: 100%;
+  height: 80px;
+  padding: .5rem .8rem;
+  background: #751471;
+  position: absolute;
+  bottom:0;
+}
+.article-sc { position:relative; width: 1024px; top: 100px;}
+#schedule {
+	width: 100%;
+  position: absolute;
+  right: 0px;
+  overflow:hidden;
+  padding-left:25px;
+  
+}
+.g-sc { width:300px; height:300px; overflow:hidden; }
+
+
+@media (min-width: 1025px) and (max-width: 1304px) {
+	.article-sc { position:relative; width: 820px; top: 100px;}
+  #schedule { width: 100%; }
+  #group-Info { width: 250px; }
+  .g_sc { width: 250px; height:300px; overflow:hidden;  }
+  .gallery{ width:250px; }
+  .gallery-item { width: 400px;}
+    #scheduleInfo { width: 550px;  left: 300px; right:0px;}
+  .viewScLi { right: 100px; }
+  #schedule-Info { width: 550px; }
+  .bx-wrapper .bx-next { left: 500px !important; }
+}
+
+@media (min-width: 980px) and (max-width: 1024px) {
+	.article-sc { position:relative; width: 800px; top: 100px;}
+	#schedule { width: 100%; }
+  #group-Info { width: 200px; }
+	.g_sc { width: 200px; height:300px; overflow:hidden;  }
+	.gallery{ width:200px; }
+	.gallery-item { width: 200px;}
+	#scheduleInfo { width: 550px;  left: 250px; right:0px;}
+	.viewScLi { right: 100px; }
+	#schedule-Info { width: 550px; }
+  .bx-wrapper .bx-next { left: 470px !important; }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+.article-sc { position:relative; width: 720px; top: 100px;}
+  #schedule { width: 100%; }
+  #group-Info { width: 200px; height:200px;}
+  .g_sc { width: 200px; height:200px; overflow:hidden;  }
+  .gallery{ width:200px; height:200px;}
+  .gallery-item { width: 200px;}
+  #scheduleInfo { width: 440px;  left: 300px; right:0px;}
+  #schedule-Info { width: 440px; }
+  .bx-wrapper .bx-next { left: 440px !important; }
+	}
+
+@media (max-width: 768px) {
+
+}
+@media (max-width: 500px) {
+
+	}

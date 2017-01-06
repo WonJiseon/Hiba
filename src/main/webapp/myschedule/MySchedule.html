@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="ko" class="no-js">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HIBA</title>
+<!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="../css/common_style.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link href="../js/jquery.bxslider.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="../css/MySchedule.css">
+<link rel="stylesheet" type="text/css" href="../css/btn.css">
+<link rel="stylesheet" type="text/css" href="../css/makegrouplayout.css">
+<style>
+
+/* .thumbnail > img,
+	.thumbnail a > img,
+	.carousel-inner > .item > img,
+	.carousel-inner > .item > a > img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+.img-rounded {
+border-radius: 6px;
+}
+.img-thumbnail {
+display: inline-block;
+max-width: 100%;
+height: auto;
+padding: 4px;
+line-height: 1.42857143;
+background-color: #fff;
+border: 1px solid #ddd;
+border-radius: 4px;
+-webkit-transition: all .2s ease-in-out;
+-o-transition: all .2s ease-in-out;
+transition: all .2s ease-in-out;
+}
+*/
+.line {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border: 0;
+	border-top: 2px solid #696969;
+}
+​
+</style>
+
+</head>
+<body>
+<div class="wrap display-none" style="z-index: 9999;">
+  <div class="loading"></div>
+</div> 
+	<div class="wrapper">
+
+		<header> </header>
+		<section class="panel" style="background: rgba(203, 203, 210, 0.15) !important; ">
+
+			<aside class="header-top" style="float: left;">
+				<ul class="aside-nav">
+					<li class="f-r"><a href="#"></a></li>
+					<li class="f-r iconMemberPlus" data-toggle="tooltip"
+						data-placement="bottom" title="그룹추가하기"><a href="#"></a></li>
+					<li class="f-r iconSchedulePlus" data-toggle="tooltip"
+						data-placement="bottom" title="일정추가하기"><a href="#"></a></li>
+					<li class="f-r iconBell user-alert"
+						style="display: block; cursor: pointer"><i
+						class="glyphicon glyphicon-exclamation-sign alert-icon"
+						style="color: red; position: absolute; font-size: 15px; top: 10px; display: none"></i>
+					</li>
+
+				</ul>
+				<p class="f-r logout" style="float: right;">
+					<a href="#">로그아웃</a>
+				</p>
+				<div class="alert-box"
+					style="position: absolute; background-color: rgba(0, 0, 0, 0.5); min-width: 250px; margin: 10px; left: 50px; top: 60px; color: #fff">
+				</div>
+			</aside>
+
+
+
+			<div class="section-wrap">
+				<div class="make-text" style="position: fixed; left: 20px; z-index: 2; top: 80px; left: 20px; float: left; width:150px">
+				<!-- 	<h2>
+						<span class="my-profile">
+							<img src="" id="profilePhoto"	style="width: 80px; height: 80px; border-radius: 50%; margin-left: 10px;   margin-bottom: 10px; "/>
+						</span><br> <span id="user" class="my-login" data-value="" style="font-weight:bold; margin-left:-5px;"></span>님 안녕하세요?
+					</h2> -->	
+					
+					 <h2 style="float:left; margin-right:5px;">
+          <img src="" id="profilePhoto" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom:10px; box-shadow: 2px 2px 1px 0px rgba(80,78,80,1);" />
+         </h2>         
+          <p style="color:#751471; margin-top: 5px; margin-left:5px; font-size:14px; font-weight:bold" id="userName" data-value=""><span>안녕하세요!</span></p> 
+          <p style="color:#fff; font-size:14px;  margin-left:5px; font-weight:bold"><span id="user" class="my-login" data-value="" ></span>님</p>
+					
+								
+				</div>
+				<div class="selectbar-left">
+
+					<div class="my-info">
+						<ul>
+							<li class="my-profile"></li>
+						</ul>
+					</div>
+				<!--	<form class="navbar-form navbar-left" role="search">
+						<div class="form-group">
+							<button type="button" class="btn btn-default">
+								<i class="fa fa-bars w3-xlarge" aria-hidden="true"></i>
+							</button>
+							<button type="button" class="btn btn-default"
+								onclick="location.href='checkMySchedule.html'">
+								<i class="fa fa-calendar w3-xlarge" aria-hidden="true"></i>
+							</button>
+						</div>
+					</form>
+
+ 					<div class="sectionbar-line">
+						<hr class="line" align=center width=100%>
+					</div> -->
+
+
+				</div>
+			 <div class="sub-box" style="margin-top:30px;">
+         <div class="title-text-box">
+           <div class="title-header">
+              <p class="sub-gorup-name" style="width:190px;">CHECK MY SCHEDULE</p>
+              <h2 id="userName2" class="sub-tasks-title" data-value="">일정을 확인해 주세요</h2>
+              <p class="sub-text tasks-header">일정이 없으시다면 새로운 일정을 만들어 보세요</p>
+            </div>                        
+         </div>            
+        </div>
+				<div class="article-sc">
+					<div id="schedule"
+						style="clear: both; text-align: center; min-height: 800px; padding: 0 20px; margin-top: -90px;">
+						<div class="user-group-info" style="position: relative;">
+							<div id="scheduleInfo" style="z-index: 11; position: absolute;">
+								<div id="schedule-Info" data-value="">
+									<div class="bxslider">
+										<!-- <ul>
+										<li id="sc">
+											<h1 class="list-group-item-text" style="font-size: 20px;"></h1>
+											<h3 class="list-group-item-text" style="font-size: 20px;"></h3>
+											<br> <span class="list-group-item-text"
+											style="font-size: 20px;"></span> <a
+											href='#' id="viewSc" class="btn btn-xs btn-success my-detail"
+											data-no="" style="z-index: 1000;">일정보기</a>
+
+
+											<div id="dday-Info">
+												<h1 id="dday" style="font-size: 30px; font-weight: bold;"></h1>
+	
+											</div>
+										</li>
+										</ul> -->
+									</div>
+								</div>
+							</div>
+							<div id="group-Info" data-value="">
+
+								<!-- 			<div id="myThumbnail" class="myThumbnail">
+						</div>
+									<div class="gallery">
+										<div class="gallery-item">
+											<div class="gallery-item-image">
+												<img src="../images/thumbnail.PNG" alt width="200"
+												height="180">
+											</div>
+											<div class="gallery-item-description">
+												<h3></h3>
+												<span>인원 24명 약속 5개</span>
+											</div>
+										</div>
+									</div>
+									<div class="separate"></div> -->
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+
+
+
+	<!--
+			bxslider 쓰기 위해 핸들바스 코드 수정
+		-->
+	<script id="div2TemplateText" type="text/x-handlebars-template">
+	             <ul>
+										<li id="sc">
+								     <ul style="float:left; text-align:left; margin-left:20px; position:relative;">
+											<li><p class="list-group-item-text" style="font-size: 30px; font-size:40px; padding:10px 0; color:#9dc92a; clear:both; border-bottom:1px solid #c9c9c9; width:600px">{{title}}</p></li>											
+                      <li style="padding-top:20px;"><h3 class="list-group-item-text" style="font-size: 15px;"><i class="fa fa-map-marker fa2" aria-hidden="true" style="color:#751471; margin-right:10px;"></i>{{placeName}}</h3></li>											
+                      <li style="padding-top:5px;"><span class="list-group-item-text"	style="font-size: 15px;"><i class="fa fa-clock-o" aria-hidden="true" style="color:#751471; margin-right:8px;"></i>{{start}} ~ {{end}}</span></li>										 
+											<li class="viewScLi" style="position:absolute; right:80px; top:85px; width:100px;"><button id="viewSc" class="button-border-g my-detail"	data-no="{{groupscNo}}" style="z-index: 1000;">일정보기</button></li>
+                      <li>
+											<div id="dday-Info">
+												<h1 id="dday" style="font-size: 40px; color:#c9c9c9">D-day
+													<span style="color:#000; font-weight:bold">{{dday}}<span></h1>
+
+											</div>
+                      </li>
+                     </ul>
+										</li>
+
+
+										</ul>
+
+		</script>
+	<script id="divTemplateText" type="text/x-handlebars-template">
+<div class="g_sc_border" style="background:#fff; margin-bottom:20px; border-top:6px solid rgb(157, 201, 42)">
+ <div class="g_sc" style="height: 294px;"> 
+      <div class="groupInfo" data-value="">
+        <div class="gallery">
+          <div class="gallery-item">
+            {{#if groupPhoto}}
+            <div class="gallery-item-image">
+              <img src="../upload/{{groupPhoto}}" alt width="100%" height="100%">
+            </div>
+            {{else}}
+            <div class="gallery-item-image">
+              <img src="../images/profile.png" alt width="100%" height="100%">
+            </div>
+            {{/if}}
+            <div class="gallery-item-description" style="padding-top:10px">
+              <p><h3>{{groupName}}</h3>그룹 입니다.<p>          
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+</div>
+      </script>
+	<script id="inviteMessage" type="text/x-handlebars-template">       
+    <div class="invite-box" style="display:none; padding:10px; border-bottom:1px solid #9dc92a"data-value="{{memberNo}}">             
+      <p style="font-size:16px;">{{name}} 님이 <span id="inviteGroupNo" > {{groupName}} 그룹에 초대하였습니다</span></p>
+        <ul>
+           <li style="display:inline">
+              <button type="button" class="button-border-p addTrue"  data-value="{{no}}" data-no="{{groupNo}}" data-chat="{{groupReplyNo}}">
+                <i class="fa fa-check" aria-hidden="true" style="font-size:12px"></i>수락
+              </button>
+           </li>
+           <li style="display:inline">
+            <button type="button" class="hiba-btn btn-round-p addFail" data-value="{{no}}">
+            <i class="fa fa-times" aria-hidden="true" style="font-size:12px"></i>거절
+        </button>
+            </li>
+        </ul>    
+         
+     </div>  
+  </script>
+
+	<script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
+	<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/include.js"></script>
+	 <script type='text/javascript'  src="../js/main.js"></script>  
+	<script src="../js/jquery.bxslider.min.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/bit.js"></script>
+	<script type="text/javascript" src="../member/memberApp.js"></script>
+	<script type="text/javascript" src="myschedule.js"></script>
+	<script type="text/javascript" src="../memberInvite/memberInvitemessageApp.js"></script>
+	<script>
+		ajaxLoginUser()
+		ajaxMygroupList()
+		ajaxGroupInviteListMessage() 
+		//ajaxMyScheduleList()
+
+		if (location.search.startsWith("?")) {
+			var no = location.search.split("=")[0];
+			ajaxMygroupList(no)
+			ajaxMyScheduleList(no)
+			$(".my-new").css("display", "none")
+
+		} else {
+			$(".my-view").css("display", "none")
+
+		}
+		</script>
+</body>
+</html>

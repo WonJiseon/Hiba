@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="ko" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="ko" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="ko" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="ko" class="no-js"> <!--<![endif]-->
+  <head>
+   <meta charset="utf-8">   
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+     <title>프로젝트-스케쥴</title>
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+   
+  <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../node_modules/lightbox2/dist/css/lightbox.css" rel="stylesheet"/> 
+  <link rel="stylesheet" type="text/css" href="../css/common_style.css" >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link href="css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="../css/makegrouplayout.css">
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">     
+</head>
+<style>
+
+#albumlist {float: left}
+#groupinfo { clear: both; font-size:20px; }
+.asdf { margin: 10px 0; padding-bottom:5px; }
+.tttt { float: left; padding-bottom: 20px;  padding-right: 20px;}
+.navbar-brand { padding-top: 0px; padding-bottom: 0px; } 
+
+.tasks {
+  margin: auto;
+  float: left;  
+  margin-right: 0.25em;
+   margin-bottom: 0.5em;
+   padding: 0.5em;
+   background: #FFF;
+   border: 1px solid #F3F0F0;
+   position: relative;
+   -webkit-box-shadow: 0 1px 2px #AFAFAF;
+   -moz-box-shadow: 0 1px 2px #AFAFAF;
+   box-shadow: 0 1px 2px #AFAFAF;
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+  
+  
+}
+
+
+
+.tasks-lists {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  margin-top: -11px;
+  padding: 10px 4px;
+  width: 19px;
+  height: 3px;
+  font: 0/0 serif;
+  text-shadow: none;
+  color: transparent;
+}
+.tasks-lists:before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: #8c959d;
+  border-radius: 1px;
+  -webkit-box-shadow: 0 6px #8c959d, 0 -6px #8c959d;
+  box-shadow: 0 6px #8c959d, 0 -6px #8c959d;
+}
+
+.tasks-list-item {
+  display: inline-block;
+  line-height: 24px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.tasks-list-item + .tasks-list-item {
+  border-top: 1px solid #f0f2f3;
+}
+
+.tasks-list-cb {
+  display: none;
+}
+
+.tasks-list-mark {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 5px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #c4cbd2;
+  border-radius: 12px;
+}
+.tasks-list-mark:before {
+  content: '';
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -5px 0 0 -6px;
+  height: 4px;
+  width: 8px;
+  border: solid #751471;
+  border-width: 0 0 4px 4px;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.tasks-list-cb:checked ~ .tasks-list-mark {
+  border-color: #9dc92a;
+}
+.tasks-list-cb:checked ~ .tasks-list-mark:before {
+  display: block;
+}
+
+.tasks-list-cb:checked ~ .tasks-list-desc {
+  color: #696969;
+  font-size: 15px;
+}
+.ph-box {
+    height:176px;
+    max-height:176px;
+    margin-right: 0.25em;
+    margin-bottom: 0.5em;
+    padding: 0.5em;
+    background: #FFF;
+    border: 1px solid #F3F0F0;
+    position: relative;
+    -webkit-box-shadow: 0 1px 2px #AFAFAF;
+    -moz-box-shadow: 0 1px 2px #AFAFAF;
+    box-shadow: 0 1px 2px #AFAFAF;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+</style>
+</head>
+
+
+<body>
+<div class="wrap2 display-none" style="z-index: 9999;  background: #9dc92a !important;">
+  <div class="loading"></div>
+</div>
+<div class="wrapper">
+  <header> </header>	
+	<section class="panel" style=""> 
+    <aside class="header-top" style="float: left; ">
+    <ul class="aside-nav"> 
+      <li class="f-r"><a href="#"></a></li>
+      <li class="f-r iconMemberPlus" data-toggle="tooltip"
+        data-placement="bottom" title="그룹추가하기"><a href="#"></a></li>
+      <li class="f-r iconSchedulePlus" data-toggle="tooltip"
+        data-placement="bottom" title="일정추가하기"><a href="#"></a></li>
+      <li class="f-r iconBell user-alert"
+        style="display: block; cursor: pointer"><i
+        class="glyphicon glyphicon-exclamation-sign alert-icon"
+        style="color: red; position: absolute; font-size: 15px; top:10px; display: none"></i>
+      </li>
+    
+    </ul>
+      <p class="f-r logout" style="float: right;"><a href="#">로그아웃</a></p>
+    <div class="alert-box"
+      style="position: absolute; background-color: rgba(0, 0, 0, 0.5); max-width: 250px; margin: 10px; left: 50px; top: 60px; color: #fff">
+    </div>
+  </aside>
+  <div class="section-wrap">
+     <div class="make-text" style="top: 80px; left: 0px; width:150px;">	    
+       <!--  <span class="my-profile" style="display:block; text-align:center;">
+            <img src="" id="profilePhoto" style="width:80px; height:80px; border-radius:50%;">
+        </span>  
+       <p style="font-size:12px; color:#fff; padding-top:12px;">  
+        <span id="userName" class="my-login" data-value="" style='padding-left:0px;'></span> 님 안녕하세요?
+       </p>	    
+               -->  
+     <h2 style="float:left; margin-right:5px;">
+          <span class="my-profile">
+              <img src="" id="profilePhoto" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom:10px; box-shadow: 2px 2px 1px 0px rgba(80,78,80,1);" />
+          </span>         
+         </h2>       
+           <p style="color:#751471; margin-top: 5px; margin-left:5px; font-size:14px; font-weight:bold"><span>안녕하세요!</span></p> 
+          <p style="color:#fff; font-size:14px;  margin-left:5px; font-weight:bold"><span id="userName" class="my-login" data-value="" ></span>님</p>
+     </div>
+
+    <div class="sub-box">
+       <div class="title-text-box">
+         <div class="title-header">
+            <p class="sub-gorup-name">GROUPNAME</p>
+            <h2 class="sub-tasks-title"><span id="tasks-title"></span>그룹 앨범</h2>
+            <p class="sub-text tasks-header">지나간 일정에 대한 사진을 올려주세요</p>
+          </div>                  
+         <!--  <p class="sc-title tasks-list-desc" style="font-size:20px; line-height:50px; padding-bottom:10px; font-weight: 500;"></p> -->
+       </div> 
+      <section class="sub-list-title-box">
+       
+          <p class="sub-list-title">SCHEDULE</p>
+         <fieldset class="tasks-list">
+           
+          
+         </fieldset>
+       </section>
+      
+      
+
+    </div>  
+  <div class="muti-gal" style="float:left; padding-top: 30px; width:75%; ">
+ 
+   
+    <form id="fileForm"  method="post" enctype="multipart/form-data">
+      <button type=button class="btn btn-primary al-btn">전송</button>
+        <button type="reset" class="btn btn-default">Reset</button>
+      <input id="multiFile" type="file" class="file" multiple>
+        
+    </form>
+    <br>
+    <div class="row" id="album_option">
+    </div>
+    <br> <br>
+    <div id="imagesContainer"></div>
+  </div>
+
+	<div class="aaaaa" style=""> </div>
+
+	</div>
+	</section>
+	</div>
+	<script id="groupNameTemplateText" type="text/x-handlebars-template">
+ 	<div class="asdf sub-list-subj" data-vo="{{groupNo}}">
+    <input type="checkbox" id="groupscList" data-no="{{groupscNo}}"  data-value="{{groupNo}}" name="task_1" class="tasks-list-cb"> 
+     <!-- display: none --> 
+    <span class="tasks-list-mark" data-no="{{groupscNo}}" ></span> <!-- 버튼똥끄라미 --> 
+     
+      <label class="tasks-list-item" id="groupList">
+      <span id="scheduleList" class="tasks-list-desc" data-gsno="{{groupscNo}}">{{title}}</span>
+    </label>
+	</div>
+	</script>
+	<script id="groupNameTemplateText2" type="text/x-handlebars-template">
+	       <h2 style="color:#fff">
+					<span id="groupinfo2"  data-value="{{groupNo}}">{{groupName}}</span> 그룹
+				</h2>
+</script>
+
+<script id="photoTemplate" type="text/x-handlebars-template">  
+  {{#if filename}}  
+  <div class="ph-box" style="float:left; padding-right:10px;">
+    <div class="al-text-list" style="clear:both; padding-bottom:5px;">  
+      <span style="display:inline-block; margin-bottom;10px;">
+        <img src="../upload/{{memberFilename}}" id="profilePhoto" style="width:30px; height:30px; border-radius:50%;"/>
+      </span>
+      <span style="display:inline">{{name}}</span>
+       <span style="display:inline; float:right; line-height:25px;">{{createdDate}}</span>
+    </div>
+    <a class="example-image-link" href="../upload/{{filename}}" data-lightbox="example-set" data-title="">
+      <img class="example-image" src="../upload/thumbnail{{filename}}" alt="" style="width:190px; height:127px;"/>
+    </a>
+  </div>
+  {{else}}
+  <p>사진을 등록해주세요^^</p>
+  {{/if}}    
+  </script>
+
+	<script src="../node_modules/jquery/dist/jquery.js"></script>
+	<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+	<script src="js/fileinput.min.js" type="text/javascript"></script>
+  <script src="js/fileinput.js" type="text/javascript"></script>
+  <script src="../node_modules/lightbox2/dist/js/lightbox-plus-jquery.min.js"></script>
+	<script type="text/javascript" src="album02.js"></script>
+  <script type='text/javascript'  src="../js/include.js"></script>  
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/bit.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/5.0.7/sweetalert2.min.js"></script>
+	<script type="text/javascript">
+
+	ajaxLoginUser()
+  ajaxGroupName()
+  ajaxGroupPhoto()
+ /*  ajaxGroupNa() */
+   /* ajaxStudyList() */
+
+
+   
+   
+   if (location.search.startsWith("?")) {     
+     $(".my-new").css("display","none")
+   } else {
+       $(".my-view").css("display","none")
+   }
+  </script>
+
+</body>
+</html>

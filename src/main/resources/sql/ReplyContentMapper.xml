@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="example.dao.ReplyContentDao">
+	<resultMap type="replyContent" id="replyContentMap">
+	<!-- type 
+	 스프링 설정 에서 typeAliasesPackage 에 지정함 별명을 앞에 example.vo 으로 
+	 자동으로 만들어 주게 설정했다. 
+	 그래서 앞에 example.vo 를 빼도 된다.
+	 -->
+		<id column="RNO" property="no" /> <!--PK 는 ID 나머지는 result -->
+    <result column="mno" property="memberNo" />    
+    <result column="rgno" property="groupNo" />
+    <result column="nicknm" property="name" />
+    <result column="conts" property="content" />      
+    <result column="PHOT_PATH" property="fileName" />
+	</resultMap>
+
+	<select id="selectList" resultMap="replyContentMap" parameterType="map">
+    select hiba_g_r_cont.mno, hiba_g_r_cont.rgno, hiba_g_r_cont.nicknm, hiba_g_r_cont.conts, hiba_membs.PHOT_PATH
+    from hiba_g_r_cont
+    inner join hiba_membs on hiba_membs.mno = hiba_g_r_cont.mno 
+    order by
+    <choose>
+      <when test="noOrder == 'asc'">rno asc</when>
+      <otherwise>rno desc</otherwise>
+     </choose> 
+    limit #{startIndex}, #{length}
+  </select>
+   
+  <insert id="insert" parameterType="replyContent">    
+    <!--  insert into hiba_g_reply(mno, conts, nicknm, cre_dt)
+    values (#{contents}, #{nicknm}, now())
+    select mno from 'hiba_membs' where nicknm=#{nicknm} 
+     insert into hiba_g_reply(mno, conts, nicknm, pwd, cre_dt)
+    select mno, 
+          #{contents}, 
+          #{nicknm}, 
+          password(#{password}),
+          now()      
+    from hiba_membs
+    where nicknm=#{nicknm}
+    
+    insert into hiba_g_r_cont(mno, grno, nicknm, conts)
+    values (#{memberNo}, #{groupNo}, #{name}, #{content})  
+    -->
+    
+    
+    insert into hiba_g_r_cont(mno, rgno, conts, nicknm)
+    select mno, 
+          #{groupNo},
+          #{content}, 
+          #{name}
+    from hiba_membs
+    where mno=#{memberNo}
+  
+  </insert>
+  
+
+</mapper>

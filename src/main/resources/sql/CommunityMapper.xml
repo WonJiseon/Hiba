@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="example.dao.CommunityDao">
+  <resultMap type="community" id="communityMap">
+  <!-- type 
+   스프링 설정 에서 typeAliasesPackage 에 지정함 별명을 앞에 example.vo 으로 
+   자동으로 만들어 주게 설정했다. 
+   그래서 앞에 example.vo 를 빼도 된다.
+   -->
+    
+    <id column="CNO" property="no" />
+    <result column="MNO" property="userNo" />
+    <result column="TITL" property="title" />
+    <result column="CONTS" property="contents" />
+    <result column="RG_DT" property="registerDate" />
+    <result column="VWCT" property="viewCount" />
+    <result column="ADDS" property="address" />
+    <result column="B_LIKE" property="boardLike" />
+    
+    <result column="NICKNM" property="userNicName"/>
+    <result column="PHOT_PATH" property="userPhoto"/>
+    
+    <result column="file_path" property="filename"/>
+  </resultMap>
+
+  <select id="selectList" resultMap="communityMap" parameterType="map">
+      select hiba_board.*, hiba_brd_file.*, hiba_membs.nicknm, hiba_membs.phot_path
+      from hiba_board 
+      inner join hiba_membs on hiba_board.mno = hiba_membs.mno
+      left join hiba_brd_file on hiba_board.cno = hiba_brd_file.cno and hiba_membs.mno = hiba_brd_file.mno
+     ORDER BY hiba_board.cno DESC
+<!--     <where>
+      <if test="title != null">title like concat('%', #{title}, '%')</if>
+    </where> 
+    order by 
+   <choose>
+      <when test="noOrder == 'asc'"> cno asc</when>
+      <otherwise>cno desc</otherwise>
+    </choose>  
+    limit #{startIndex}, #{length}-->
+  </select>
+  
+
+  <select id="selectOne" resultMap="communityMap" parameterType="int">
+    select hiba_board.*, hiba_brd_file.*, hiba_membs.nicknm
+    from hiba_board 
+    inner join hiba_membs on hiba_board.mno = hiba_membs.mno
+    left join hiba_brd_file on hiba_board.cno = hiba_brd_file.cno and hiba_membs.mno = hiba_brd_file.mno
+    where hiba_board.cno = #{value}
+    
+<!--select hiba_board.cno, hiba_board.mno, hiba_board.titl, hiba_board.conts, 
+           hiba_board.rg_dt, hiba_board.vwct, hiba_board.b_like, 
+           hiba_board.adds, hiba_membs.nicknm
+    from hiba_board inner join hiba_membs on hiba_board.mno = hiba_membs.mno
+    where cno = #{value} -->
+  </select>
+  
+  
+  <update id="updateViewCount" parameterType="int">
+   update hiba_board set
+   vwct = vwct+1
+   where cno=#{no}
+  </update>
+  
+  <insert id="insert" parameterType="community"  useGeneratedKeys="true" keyColumn="no" keyProperty="no">
+    insert into hiba_board(mno, titl, conts, adds, RG_DT)
+    values(#{userNo}, #{title}, #{contents}, #{address}, now())
+    
+  </insert>
+
+  <update id="update" parameterType="community"> 
+    update hiba_board set
+      titl=#{title},
+      conts=#{contents},
+      adds=#{address}
+    where cno=#{no}
+  </update>
+  
+<!-- 
+  <update id="updateHitCnt" parameterType="community">
+    <![CDATA[
+        UPDATE HIBA_BOARD 
+        SET
+            vwct= NVL(vwct, 0) + 1
+        WHERE
+            IDX = #{IDX}    
+    ]]>
+	</update> -->
+	
+
+
+  <delete id="delete" parameterType="int">
+    delete from hiba_board
+    where cno = #{no}
+  </delete>
+
+</mapper>

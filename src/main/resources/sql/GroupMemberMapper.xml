@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="example.dao.GroupMemberDao">
+	<resultMap type="groupMember" id="groupMemberMap">
+	<!-- type 
+	 스프링 설정 에서 typeAliasesPackage 에 지정함 별명을 앞에 example.vo 으로 
+	 자동으로 만들어 주게 설정했다. 
+	 그래서 앞에 example.vo 를 빼도 된다.
+	 -->
+		<id column="MNO" property="no" /> <!--PK 는 ID 나머지는 result -->
+		<result column="GNO" property="groupNo" />
+		<result column="GREG" property="createdDate" />   
+	</resultMap>
+
+	<select id="selectList" resultMap="groupMemberMap" parameterType="map">
+    select mno, name, nicknm, email
+    from hiba_membs
+  
+    limit #{startIndex}, #{length}
+  </select>
+  
+  <insert id="insert" parameterType="groupMember">
+    insert into HIBA_G_MEMBS(mno, gno, greg)
+    values (#{no}, #{groupNo}, now())
+  </insert>
+
+ 
+
+</mapper>
